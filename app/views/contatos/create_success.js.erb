@@ -1,0 +1,49 @@
+function Sucesso() {
+	//apagar o valor dos inputs
+	$("input").val("");
+
+	// nome do contato
+	let name = "<%= @contato.nome %>"
+
+	//flag para ver se a linha ja foi colocada
+	let flag = 0;
+
+	// contrução da linha que vamos inserir
+	let novaLinha = '';
+	novaLinha += "<tr><td><%= j(link_to @contato.nome, contato_path(@contato.id)) %></td>";
+	novaLinha += "<td><%= j(@contato.email) %></td>";
+	novaLinha += "<td><%= j(link_to "Apagar", contato_path(@contato.id), method: :delete) %></td></tr>"
+
+	// grava caso a lista seja vazia
+	if ($('tbody  > tr').length == 0) {
+		$('tbody').append(novaLinha);
+		flag = 1;
+	}
+
+	// bloco para encontrar o local certo
+	if (flag == 0) {
+		$('tbody  > tr').each((i, tr) => {
+			let td = $(tr).find('td:first');
+			let a = $(td).find('a');
+			let text = $(a).html();
+			if (text >= name) {
+				$(tr).before(novaLinha);
+				flag = 1;
+				return false;
+			}
+		});
+	}
+
+	// bloco que grava a linha no final
+	if (flag == 0) {
+		$('tbody > tr:last').after(novaLinha);
+		flag = 1;
+	}
+
+	swal("Sucesso!!", `${name} foi adicionado em sua lista`, "success");
+}
+
+
+Sucesso();
+
+

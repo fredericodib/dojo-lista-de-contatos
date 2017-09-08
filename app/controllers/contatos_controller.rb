@@ -2,16 +2,22 @@ class ContatosController < ApplicationController
 
 	def index
 		@contato = Contato.new
-		@contatos = Contato.all
+		@contatos = Contato.all.order(:nome)
 	end
 
 	def create
+		@contatos = Contato.all.order(:nome)
 		@contato = Contato.new(contatos_parametros)
+		
 		if @contato.save
-			redirect_to root_path, notice: "foi gravado"
+			render :create_success
 		else
-			render :index
+			render :create_error
 		end
+	end
+
+	def show
+		@contato = Contato.find(params[:id])
 	end
 
 	def destroy

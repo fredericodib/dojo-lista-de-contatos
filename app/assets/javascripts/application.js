@@ -14,5 +14,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require sweetalert
 //= require cocoon
 //= require_tree .

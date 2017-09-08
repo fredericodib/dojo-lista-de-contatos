@@ -1,0 +1,17 @@
+function Erro() {
+	//apagar o valor dos inputs
+	$("input").val("");
+
+	let errorsArray = <%= raw @contato.errors.full_messages %>;
+	let errorMessage = '';
+	errorsArray.map((message) => {
+		errorMessage += message + ", "
+	});
+
+
+
+	swal("Erro!!", errorMessage, "error");
+}
+
+
+Erro();

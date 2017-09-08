@@ -1,0 +1,12 @@
+<div class="container">
+	<h1>Contato</h1>
+	<p><%= @contato.nome %></p>
+	<p><%= @contato.email %></p>
+	<% @contato.telefones.each do |t| %>
+		<p>
+			<%= t.tipo %>
+			<%= t.numero %>
+		</p>
+	<% end %>
+	<p><% @contato.cargo %></p>
+</div>

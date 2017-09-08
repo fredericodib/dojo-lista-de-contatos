@@ -2,10 +2,7 @@
 	<div class="col-sm-6">
 		<h1>Cadastro</h1>
 		<h3><%= notice %></h3>
-		<%= form_for @contato do |f|%>
-			<% @contato.errors.full_messages.each do |m| %>
-				<h5><%= m %></h5>
-			<% end %>
+		<%= form_for @contato, remote: true do |f|%>
 			
 			<div class="form-group">
 				<%= f.label :nome %>
@@ -36,18 +33,22 @@
 	<div class="col-sm-6">
 		<h1>Lista de contatos</h1>
 		<table class="table">
-			<tr>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Delete</th>
-			</tr>
-			<% @contatos.each do |contato| %>
+			<thead>
 				<tr>
-					<td><%= contato.nome %></td>
-					<td><%= contato.email %></td>
-					<td><%= link_to "Apagar", contato_path(contato.id), method: :delete %></td>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Delete</th>
 				</tr>
-			<% end %>
+			</thead>
+			<tbody>
+				<% @contatos.each do |contato| %>
+					<tr>
+						<td><%= link_to contato.nome, contato_path(contato.id) %></td>
+						<td><%= contato.email %></td>
+						<td><%= link_to "Apagar", contato_path(contato.id), method: :delete %></td>
+					</tr>
+				<% end %>
+			</tbody>
 		</table>
 	</div>
 </div>
