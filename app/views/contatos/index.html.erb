@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="col-sm-6">
+		<h1>Cadastro</h1>
+		<h3><%= notice %></h3>
+		<%= form_for @contato do |f|%>
+			<% @contato.errors.full_messages.each do |m| %>
+				<h5><%= m %></h5>
+			<% end %>
+			<%=f.label :nome%>
+			<%=f.text_field :nome%><br>
+			<%=f.label :email%>
+			<%=f.email_field :email%><br>
+			<%=f.label :cargo%>
+			<%=f.select :cargo, Contato.cargos.keys.map { |w| [w.humanize, w] }%>
+			<%= f.submit "Cadastrar" %>
+		<%end%>	
+	</div>
+	<div class="col-sm-6">
+		<h1>Lista de contatos</h1>
+		<table class="table">
+			<tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Delete</th>
+			</tr>
+			<% @contatos.each do |contato| %>
+				<tr>
+					<td><%= contato.nome %></td>
+					<td><%= contato.email %></td>
+					<td>Delete</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
