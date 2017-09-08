@@ -6,13 +6,31 @@
 			<% @contato.errors.full_messages.each do |m| %>
 				<h5><%= m %></h5>
 			<% end %>
-			<%=f.label :nome%>
-			<%=f.text_field :nome%><br>
-			<%=f.label :email%>
-			<%=f.email_field :email%><br>
-			<%=f.label :cargo%>
-			<%=f.select :cargo, Contato.cargos.keys.map { |w| [w.humanize, w] }%>
-			<%= f.submit "Cadastrar" %>
+			
+			<div class="form-group">
+				<%= f.label :nome %>
+				<%= f.text_field :nome, class: "form-control" %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :email %>
+				<%= f.email_field :email, class: "form-control" %>
+			</div>
+			
+			<div id="telefones">
+				<%= f.fields_for :telefones do |t| %>
+					<%= render 'telefone_fields', f: t %>
+				<% end %>
+				<%= link_to_add_association '+', f, :telefones, class: "btn btn-default" %>
+			</div>
+			<br>
+
+			<div class="form-group">
+				<%=f.label :cargo%>
+				<%=f.select :cargo, options_for_select(Contato.cargos.keys), {}, {:class => "form-control"} %>
+			</div>
+
+			<%= f.submit "Cadastrar", class: "btn btn-default" %>
 		<%end%>	
 	</div>
 	<div class="col-sm-6">
@@ -27,7 +45,7 @@
 				<tr>
 					<td><%= contato.nome %></td>
 					<td><%= contato.email %></td>
-					<td>Delete</td>
+					<td><%= link_to "Apagar", contato_path(contato.id), method: :delete %></td>
 				</tr>
 			<% end %>
 		</table>
